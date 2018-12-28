@@ -12,7 +12,6 @@ var VistaUsuario = function(modelo, controlador, elementos) {
     contexto.reconstruirLista();
   });
   this.modelo.preguntaVotada.suscribir(function(){
-    contexto.reconstruirLista();
     contexto.reconstruirGrafico();
   });
   this.modelo.preguntaEditada.suscribir(function() {
