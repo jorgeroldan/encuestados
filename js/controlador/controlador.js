@@ -10,4 +10,8 @@ Controlador.prototype = {
       this.modelo.agregarPregunta(pregunta, respuestas);
       this.modelo.guardar();
   },
+  borrarPregunta: function(id){
+    this.modelo.borrarPregunta(id);  
+    this.modelo.guardar();    
+  },
 };
