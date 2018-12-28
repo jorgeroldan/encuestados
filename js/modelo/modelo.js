@@ -12,6 +12,7 @@ var Modelo = function () {
   this.preguntaEliminada = new Evento(this);
   this.preguntasEliminadas = new Evento(this);
   this.preguntaEditada = new Evento(this)
+  this.preguntaVotada = new Evento(this)
 };
 
 Modelo.prototype = {
@@ -83,5 +84,7 @@ Modelo.prototype = {
         });
       }
     });
+    this.guardar();
+    this.preguntaVotada.notificar();
   }
 };

@@ -11,6 +11,22 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
+  this.modelo.preguntaVotada.suscribir(function(){
+    contexto.reconstruirLista();
+    contexto.reconstruirGrafico();
+  });
+  this.modelo.preguntaEditada.suscribir(function() {
+    contexto.reconstruirLista();
+    contexto.reconstruirGrafico();
+  });
+  this.modelo.preguntaEliminada.suscribir(function() {
+    contexto.reconstruirLista();
+    contexto.reconstruirGrafico();
+  });
+  this.modelo.preguntasEliminadas.suscribir(function() {
+    contexto.reconstruirLista();
+    contexto.reconstruirGrafico();
+  });
 };
 
 VistaUsuario.prototype = {
