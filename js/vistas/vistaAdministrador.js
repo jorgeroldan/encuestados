@@ -80,8 +80,8 @@ VistaAdministrador.prototype = {
     let id;
     e.botonBorrarPregunta.click(() => {
       id = parseInt($('.list-group-item.active').attr('id'));
-
       const pregunta = e.lista.find(".active").find("h5")[0].innerText;
+      
       swal("Confirmar", `Se va a eliminar la pregunta: ${pregunta}`, "warning", {
         buttons: {
           cancelar: {

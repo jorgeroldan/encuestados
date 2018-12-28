@@ -21,5 +21,5 @@ Controlador.prototype = {
   editarPregunta: function (id) {
     this.modelo.editarPregunta(id);
     this.modelo.guardar();
-  }
+  }, 
 };

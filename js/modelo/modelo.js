@@ -11,7 +11,7 @@ var Modelo = function () {
   this.preguntaAgregada = new Evento(this);
   this.preguntaEliminada = new Evento(this);
   this.preguntasEliminadas = new Evento(this);
-  this.preguntaEditada = new Evento(this);
+  this.preguntaEditada = new Evento(this)
 };
 
 Modelo.prototype = {
@@ -46,14 +46,14 @@ Modelo.prototype = {
   },
   //se elimina una pregunta dado un id
   borrarPregunta: function (idPregunta) {
-    for (let i = 0; i < this.preguntas.length; i++) {
-      if (this.preguntas[i].id === idPregunta) {
-        this.preguntas.splice(i, 1);
-        this.guardar();
-        this.preguntaEliminada.notificar();
-        break;
-      }
-    };
+      for (let i = 0; i < this.preguntas.length; i++) {
+        if (this.preguntas[i].id === idPregunta) {
+          this.preguntas.splice(i, 1);
+          this.guardar();
+          this.preguntaEliminada.notificar();
+          break;
+        }
+      };
   },
   borrarTodo: function() {
     this.preguntas = [];
@@ -63,8 +63,25 @@ Modelo.prototype = {
   },
   editarPregunta: function (id) {
     let preguntaAEditadar = this.preguntas.find(pregunta => pregunta.id === id);
-    const edicionPregunta = prompt('Editar pregunta:')
-    preguntaAEditadar.textoPregunta = edicionPregunta;
-    this.preguntaEditada.notificar();    
+    if (preguntaAEditadar){
+      const edicionPregunta = prompt('Editar pregunta:')
+      preguntaAEditadar.textoPregunta = edicionPregunta;
+      this.preguntaEditada.notificar();  
+    } else{
+      swal("No seleccionaste ninguna pregunta para editar", {
+        button: false,
+      });
+    }
   },
+  agregarVoto: function (nombrePregunta, respuestaSeleccionada) {
+    this.preguntas.forEach(pregunta => {
+      if (pregunta.textoPregunta === nombrePregunta) {
+        pregunta.cantidadPorRespuesta.forEach(respuesta => {
+          if (respuesta.textoRespuesta === respuestaSeleccionada) {
+            respuesta.cantidad++;
+          }
+        });
+      }
+    });
+  }
 };
