@@ -14,6 +14,12 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo.preguntaEliminada.suscribir(function() { 
     contexto.reconstruirLista(); 
   });    
+  this.modelo.preguntasEliminadas.suscribir(function() {
+    contexto.reconstruirLista();
+  });
+  this.modelo.preguntaEditada.suscribir(function() {
+    contexto.reconstruirLista();
+  });
 };
 
 
@@ -76,7 +82,7 @@ VistaAdministrador.prototype = {
       id = parseInt($('.list-group-item.active').attr('id'));
 
       const pregunta = e.lista.find(".active").find("h5")[0].innerText;
-      swal("Confirmar porfavor", `Se va a eliminar la pregunta: ${pregunta}`, "warning", {
+      swal("Confirmar", `Se va a eliminar la pregunta: ${pregunta}`, "warning", {
         buttons: {
           cancelar: {
               text: "Cancelar",
@@ -97,8 +103,26 @@ VistaAdministrador.prototype = {
     });
       
     e.borrarTodo.click(() => {
-      contexto.controlador.borrarTodo();
-    });
+        swal("Confirmar", "Se van a eliminar TODAS las preguntas!", "warning", {
+          buttons: {
+            Cancelar: {
+                text: "Cancelar",
+                value: false
+            },
+            Ok: {
+                text: "Eliminar",
+                value: true
+            },
+          },
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            contexto.limpiarFormulario();
+            contexto.controlador.borrarTodo();
+          };
+        });
+      });
+
     e.botonEditarPregunta.click(() => {
       id = parseInt($('.list-group-item.active').attr('id'));
       contexto.controlador.editarPregunta(id);

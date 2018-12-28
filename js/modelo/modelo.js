@@ -10,6 +10,8 @@ var Modelo = function () {
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
   this.preguntaEliminada = new Evento(this);
+  this.preguntasEliminadas = new Evento(this);
+  this.preguntaEditada = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -34,7 +36,14 @@ Modelo.prototype = {
     localStorage.setItem("preguntas", JSON.stringify(this.preguntas));
     localStorage.setItem("ultimoId", JSON.stringify(this.ultimoId));
   },
+  localStorage: function () {
+    const ultimoId = JSON.parse(localStorage.getItem("ultimoId"));
 
+    if (ultimoId >= 1) {
+      this.ultimoId = ultimoId;
+      this.preguntas = JSON.parse(localStorage.getItem("preguntas"));
+    }
+  },
   //se elimina una pregunta dado un id
   borrarPregunta: function (idPregunta) {
     for (let i = 0; i < this.preguntas.length; i++) {
@@ -46,12 +55,16 @@ Modelo.prototype = {
       }
     };
   },
-  localStorage: function () {
-    const ultimoId = JSON.parse(localStorage.getItem("ultimoId"));
-
-    if (ultimoId >= 1) {
-      this.ultimoId = ultimoId;
-      this.preguntas = JSON.parse(localStorage.getItem("preguntas"));
-    }
+  borrarTodo: function() {
+    this.preguntas = [];
+    this.ultimoId = 0;
+    this.guardar();
+    this.preguntasEliminadas.notificar();
+  },
+  editarPregunta: function (id) {
+    let preguntaAEditadar = this.preguntas.find(pregunta => pregunta.id === id);
+    const edicionPregunta = prompt('Editar pregunta:')
+    preguntaAEditadar.textoPregunta = edicionPregunta;
+    this.preguntaEditada.notificar();    
   },
 };

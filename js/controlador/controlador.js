@@ -14,4 +14,12 @@ Controlador.prototype = {
     this.modelo.borrarPregunta(id);  
     this.modelo.guardar();    
   },
+  borrarTodo: function () {
+    this.modelo.borrarTodo();
+    this.modelo.guardar();       
+  },
+  editarPregunta: function (id) {
+    this.modelo.editarPregunta(id);
+    this.modelo.guardar();
+  }
 };
