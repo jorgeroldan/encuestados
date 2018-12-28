@@ -5,10 +5,7 @@ var Modelo = function () {
   this.preguntas = [];
   this.ultimoId = 0;
 
-  // if (localStorage.preguntas) {
-  //   this.preguntas = JSON.parse(localStorage.getItem('preguntas'));
-  // }
-  this.recuperar()
+  this.localStorage()
 
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
@@ -37,6 +34,7 @@ Modelo.prototype = {
     localStorage.setItem("preguntas", JSON.stringify(this.preguntas));
     localStorage.setItem("ultimoId", JSON.stringify(this.ultimoId));
   },
+
   //se elimina una pregunta dado un id
   borrarPregunta: function (idPregunta) {
     for (let i = 0; i < this.preguntas.length; i++) {
@@ -48,7 +46,7 @@ Modelo.prototype = {
       }
     };
   },
-  recuperar: function () {
+  localStorage: function () {
     const ultimoId = JSON.parse(localStorage.getItem("ultimoId"));
 
     if (ultimoId >= 1) {

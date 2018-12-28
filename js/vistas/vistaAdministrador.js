@@ -74,8 +74,28 @@ VistaAdministrador.prototype = {
     let id;
     e.botonBorrarPregunta.click(() => {
       id = parseInt($('.list-group-item.active').attr('id'));
-      contexto.controlador.borrarPregunta(id);
+
+      const pregunta = e.lista.find(".active").find("h5")[0].innerText;
+      swal("Confirmar porfavor", `Se va a eliminar la pregunta: ${pregunta}`, "warning", {
+        buttons: {
+          cancelar: {
+              text: "Cancelar",
+              value: false
+          },
+          ok: {
+            text: "Eliminar",
+            value: true
+          },
+        },
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          contexto.limpiarFormulario();
+          contexto.controlador.borrarPregunta(id);
+        };
+      });
     });
+      
     e.borrarTodo.click(() => {
       contexto.controlador.borrarTodo();
     });
