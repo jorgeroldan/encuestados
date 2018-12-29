@@ -64,9 +64,14 @@ Modelo.prototype = {
   },
   editarPregunta: function (id) {
     let preguntaAEditadar = this.preguntas.find(pregunta => pregunta.id === id);
+    // let respuestasId = []
+    
     if (preguntaAEditadar){
       const edicionPregunta = prompt('Editar pregunta:')
       preguntaAEditadar.textoPregunta = edicionPregunta;
+      // respuestasId = this.modelo.preguntas[id].cantidadPorRespuesta
+      // let respuestaAEditadar 
+      // this.respuestaAEditadar.notificar()
       this.preguntaEditada.notificar();  
     } else{
       swal("No seleccionaste ninguna pregunta para editar", {
